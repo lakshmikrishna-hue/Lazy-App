@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Lazy App 🦥</title>
+  <style>
+    :root {
+      --bg: #1e1e24;
+      --card-bg: #2b2b36;
+      --text: #e6e6e9;
+      --subtext: #8e8ea0;
+      --accent: #f4a261;
+      --danger: #e76f51;
+      --btn: #3d3d4d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    p.tagline {
+      color: var(--subtext);
+      font-style: italic;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      color: var(--accent);
+    }
+
+    button {
+      background: var(--btn);
+      color: var(--text);
+      border: 1px solid #4f4f66;
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    button:hover {
+      background: #4a4a5e;
+    }
+
+    /* Excuse Generator */
+    .excuse-box {
+      font-size: 1.1rem;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: 1rem 0;
+      color: #fff;
+    }
+
+    /* Do Nothing Tracker */
+    .timer-display {
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-align: center;
+      margin: 0.8rem 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .warning {
+      color: var(--danger);
+      font-size: 0.85rem;
+      text-align: center;
+      height: 1.2rem;
+    }
+
+    /* Procrastination List */
+    .input-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: 1px solid #4f4f66;
+      background: #191920;
+      color: white;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    li {
+      background: #202029;
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    li .postponed {
+      color: var(--subtext);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>The Lazy App 🦥</h1>
+    <p class="tagline">Why do today what you can avoid entirely?</p>
+  </header>
+
+  <div class="container">
+
+    <!-- 1. Instant Excuse Generator -->
+    <div class="card">
+      <h2>Instant Excuse Generator</h2>
+      <div class="excuse-box" id="excuseDisplay">"Click below to get out of doing things."</div>
+      <button style="width: 100%;" onclick="generateExcuse()">I need an excuse</button>
+    </div>
+
+    <!-- 2. Procrastination List -->
+    <div class="card">
+      <h2>To-Don't List</h2>
+      <div class="input-row">
+        <input type="text" id="taskInput" placeholder="Enter something you should be doing...">
+        <button onclick="addTask()">Add</button>
+      </div>
+      <ul id="taskList">
+        <li>
+          <span>Fix my life</span>
+          <span class="postponed">⏳ Scheduled for: Someday</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 3. Do Nothing Challenge -->
+    <div class="card">
+      <h2>"Do Absolutely Nothing" Tracker</h2>
+      <p style="font-size: 0.85rem; color: var(--subtext);">
+        Don't move your mouse, don't tap, don't type. Just rest.
+      </p>
+      <div class="timer-display" id="timer">00:00</div>
+      <div class="warning" id="warningText"></div>
+    </div>
+
+  </div>
+
+  <script>
+    // --- 1. EXCUSES ---
+    const excuses = [
+      "My bed and I have a codependent relationship.",
+      "I'm currently running in low-power mode.",
+      "Mercury is in retrograde, better not risk exerting effort.",
+      "I sat down and my body immediately solidified.",
+      "I’d love to help, but that sounds like effort.",
+      "I'm mentally preparing for tomorrow's nap.",
+      "I gave 100% yesterday, today I am at 0%."
+    ];
+
+    function generateExcuse() {
+      const random = excuses[Math.floor(Math.random() * excuses.length)];
+      document.getElementById('excuseDisplay').innerText = `"${random}"`;
+    }
+
+    // --- 2. PROCRASTINATION LIST ---
+    const postponementPhrases = [
+      "Scheduled for: Next Tuesday maybe",
+      "Scheduled for: Tomorrow™",
+      "Postponed indefinitely",
+      "Pending cosmic inspiration",
+      "Not feeling it right now"
+    ];
+
+    function addTask() {
+      const input = document.getElementById('taskInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const randomPhrase = postponementPhrases[Math.floor(Math.random() * postponementPhrases.length)];
+      
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${text}</span><span class="postponed">⏳ ${randomPhrase}</span>`;
+      
+      document.getElementById('taskList').appendChild(li);
+      input.value = '';
+    }
+
+    // --- 3. DO NOTHING TIMER ---
+    let seconds = 0;
+    let timerInterval = null;
+    let warningTimeout = null;
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        seconds++;
+        const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+        const secs = String(seconds % 60).padStart(2, '0');
+        document.getElementById('timer').innerText = `${mins}:${secs}`;
+      }, 1000);
+    }
+
+    function resetTimer() {
+      seconds = 0;
+      document.getElementById('timer').innerText = "00:00";
+      
+      const warning = document.getElementById('warningText');
+      warning.innerText = "⚠️ Effort detected! Resetting your rest time...";
+      
+      clearTimeout(warningTimeout);
+      warningTimeout = setTimeout(() => {
+        warning.innerText = "";
+      }, 2000);
+    }
+
+    // Track accidental effort
+    window.addEventListener('mousemove', resetTimer);
+    window.addEventListener('keydown', resetTimer);
+    window.addEventListener('scroll', resetTimer);
+
+    startTimer();
+  </script>
+</body>
+</html>
