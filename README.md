@@ -50,6 +50,9 @@ Because this is a lazy app, the setup requires almost zero effort:
 Contributions are welcome... but honestly, don't rush. Take a nap first. If you still feel like opening a Pull Request tomorrow, go ahead.
 
 ---
+##Credits
+
+Lazily made using Google AI Studio
 
 ## 📜 License
 
