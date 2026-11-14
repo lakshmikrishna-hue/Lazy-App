@@ -18,7 +18,7 @@ A minimal, tongue-in-cheek web application designed for elite procrastinators, p
 ## 🚀 Live Demo
 
 *(Replace this link with your GitHub Pages URL once enabled)*  
-👉 **[View Live Demo](https://YOUR-USERNAME.github.io/lazy-app/)**
+👉 **[View Live Demo](https://shellytom81-cyber.github.io/lazy-app/)**
 
 ---
 
@@ -29,7 +29,7 @@ Because this is a lazy app, the setup requires almost zero effort:
 ### Method 1: Just Open It
 1. Clone or download this repo:
    ```bash
-   git clone https://github.com/YOUR-USERNAME/lazy-app.git
+   git clone https://github.com/shellytom81-cyber/lazy-app.git
    ```
 2. Double-click `index.html` to open it in your favorite browser.
 3. Relax.
