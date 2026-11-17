@@ -17,7 +17,6 @@ A minimal, tongue-in-cheek web application designed for elite procrastinators, p
 
 ## 🚀 Live Demo
 
-*(Replace this link with your GitHub Pages URL once enabled)*  
 👉 **[View Live Demo](https://YOUR-USERNAME.github.io/lazy-app/)**
 
 ---
